@@ -330,7 +330,7 @@ int main(int argc, char* argv[])
 
    return hr;
   } else {
-    char * outString = (char*)output->GetBufferPointer();
+    unsigned char * outString = (char*)output->GetBufferPointer();
     int len = output->GetBufferSize();
 
     FILE* f;
@@ -338,7 +338,7 @@ int main(int argc, char* argv[])
 
     fprintf(f, "const BYTE %s[] =\n{\n", entryPoint);
     for (i = 0; i < len; i++) {
-     fprintf(f, "%4i", outString[i]);
+     fprintf(f, "%4u", outString[i]);
      if (i != len - 1)
        fprintf(f, ",");
      if (i % 6 == 5)
