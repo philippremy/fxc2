@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
     D3D_SHADER_MACRO* newDefines;
 
     int optionIndex = 0;
-    c = getopt_long_only (argc, argv, "T:E:D:V:F:",
+    c = getopt_long_only (argc, argv, "T:E:D:V:F:O:",
                      longOptions, &optionIndex);
 
     /* Detect the end of the options. */
