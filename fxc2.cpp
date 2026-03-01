@@ -160,7 +160,7 @@ int main(int argc, char* argv[])
 			break;
 		}
 		if(verbose) {
-          printf ("option -O with arg %s\n", optarg[0]);
+          printf ("option -O with arg %c\n", optarg[0]);
         }
 		break;
 		
@@ -281,10 +281,10 @@ int main(int argc, char* argv[])
   if (FAILED(hr)) {
    if (errors) {
     char* error = (char*)errors->GetBufferPointer();
-    printf("Got an error (%i) while compiling:\n%s\n", hr, error);
+    printf("Got an error (%li) while compiling:\n%s\n", hr, error);
     errors->Release();
    } else {
-     printf("Got an error (%i) while compiling, but no error message from the function.\n", hr);
+     printf("Got an error (%li) while compiling, but no error message from the function.\n", hr);
 
      LPSTR messageBuffer = nullptr;
      size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
