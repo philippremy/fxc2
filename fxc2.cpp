@@ -266,6 +266,8 @@ int main(int argc, char* argv[])
     printf("\t");
     for(i=0; i<numDefines-1; i++)
       printf(" %s=%s", defines[i].Name, defines[i].Definition);
+	if(numDefines-1 == 0)
+		printf("NULL");
     printf(",\n");
 
     printf("\t D3D_COMPILE_STANDARD_FILE_INCLUDE,\n");
@@ -274,7 +276,7 @@ int main(int argc, char* argv[])
 
     printf("\t %s,\n", model);
 
-    printf("\t 0,\n");
+    printf("\t %i,\n", optlevel);
     printf("\t 0,\n");
     printf("\t &output,\n");
     printf("\t &errors);\n");
