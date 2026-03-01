@@ -52,6 +52,7 @@ int main(int argc, char* argv[])
   char* entryPoint = NULL;
   char* variableName = NULL;
   char* outputFile = NULL;
+  int optlevel = D3DCOMPILE_OPTIMIZATION_LEVEL1; // Default to D3DCOMPILE_OPTIMIZATION_LEVEL1
   int numDefines = 1;
   D3D_SHADER_MACRO* defines = new D3D_SHADER_MACRO[numDefines];
   defines[numDefines-1].Name = NULL;
@@ -108,7 +109,6 @@ int main(int argc, char* argv[])
           printf ("option -D with arg %s\n", optarg);
         }
         break;
-
       case 'V':
         switch(optarg[0])
         {
@@ -142,7 +142,24 @@ int main(int argc, char* argv[])
             break;
         }
         break;
-
+	  case 'O':
+		switch(optarg[0])
+		{
+		  case: '0':
+			optlevel = D3DCOMPILE_OPTIMIZATION_LEVEL0;
+			break;
+		  case: '1':
+			optlevel = D3DCOMPILE_OPTIMIZATION_LEVEL1;
+			break;
+		  case: '2':
+			optlevel = D3DCOMPILE_OPTIMIZATION_LEVEL2;
+			break;
+		  case: '3':
+			optlevel = D3DCOMPILE_OPTIMIZATION_LEVEL3;
+			break;
+		}
+		break;
+		
       case '?':
       default:
         print_usage_arg();
@@ -248,7 +265,7 @@ int main(int argc, char* argv[])
     D3D_COMPILE_STANDARD_FILE_INCLUDE,
     entryPoint,
     model,
-    0,
+    optlevel,
     0,
     &output,
     &errors
@@ -283,7 +300,7 @@ int main(int argc, char* argv[])
     FILE* f;
     errno_t err = fopen_s(&f, outputFile, "w");
 
-    fprintf(f, "const signed char %s[] =\n{\n", entryPoint);
+    fprintf(f, "const BYTE %s[] =\n{\n", entryPoint);
     for (i = 0; i < len; i++) {
      fprintf(f, "%4i", outString[i]);
      if (i != len - 1)
