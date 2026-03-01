@@ -10,8 +10,9 @@
 #include <string>
 #include <wchar.h>
 
-
+#ifndef D3D_COMPILE_STANDARD_FILE_INCLUDE
 #define D3D_COMPILE_STANDARD_FILE_INCLUDE ((ID3DInclude*)(UINT_PTR)1)
+#endif
 typedef HRESULT(__stdcall *pCompileFromFileg)(LPCWSTR,
 					      const D3D_SHADER_MACRO[],
 					      ID3DInclude*,
@@ -145,19 +146,22 @@ int main(int argc, char* argv[])
 	  case 'O':
 		switch(optarg[0])
 		{
-		  case: '0':
+		  case '0':
 			optlevel = D3DCOMPILE_OPTIMIZATION_LEVEL0;
 			break;
-		  case: '1':
+		  case '1':
 			optlevel = D3DCOMPILE_OPTIMIZATION_LEVEL1;
 			break;
-		  case: '2':
+		  case '2':
 			optlevel = D3DCOMPILE_OPTIMIZATION_LEVEL2;
 			break;
-		  case: '3':
+		  case '3':
 			optlevel = D3DCOMPILE_OPTIMIZATION_LEVEL3;
 			break;
 		}
+		if(verbose) {
+          printf ("option -O with arg %s\n", optarg[0]);
+        }
 		break;
 		
       case '?':
