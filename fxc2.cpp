@@ -110,39 +110,69 @@ int main(int argc, char* argv[])
           printf ("option -D with arg %s\n", optarg);
         }
         break;
-      case 'V':
-        switch(optarg[0])
-        {
-          case 'n':
-            variableName = strdup(&optarg[1]);
-            if(verbose) {
-              printf ("option -Vn (Variable Name) with arg %s\n", &optarg[1]);
-            }
-            break;
-          case 'i':
-            if(verbose) {
-              printf("option -Vi (Output include process details) acknowledged but ignored.\n");
-            }
-            break;
-          default:
-            print_usage_arg();
-            break;
-        }
-        break;
-      case 'F':
-        switch(optarg[0])
-        {
-          case 'h':
-            outputFile = strdup(&optarg[1]);
-            if(verbose) {
-              printf ("option -Fh (Output File) with arg %s\n", &optarg[1]);
-            }
-            break;
-          default:
-            print_usage_arg();
-            break;
-        }
-        break;
+	  case 'V':
+		  switch(optarg[0])
+		  {
+			case 'n':
+			{
+			  if (optarg[1] != '\0') {
+				variableName = strdup(&optarg[1]);
+			  } else {
+				if (optind >= argc)
+				  print_usage_missing("variableName");
+		
+				variableName = strdup(argv[optind]);
+				optind++;
+			  }
+		
+			  if(verbose) {
+				printf("option -Vn (Variable Name) with arg %s\n", variableName);
+			  }
+			  break;
+			}
+		
+			case 'i':
+			  if(verbose) {
+				printf("option -Vi acknowledged but ignored.\n");
+			  }
+			  break;
+		
+			default:
+			  print_usage_arg();
+		  }
+		  break;
+	  case 'F':
+		  switch(optarg[0])
+		  {
+		    case 'h':
+		    {
+		      /* Allow both:
+		         -FhTEST.h
+		         -Fh TEST.h
+		      */
+		
+		      if (optarg[1] != '\0') {
+		        /* inline form */
+		        outputFile = strdup(&optarg[1]);
+		      } else {
+		        /* spaced form */
+		        if (optind >= argc)
+		          print_usage_missing("outputFile");
+		
+		        outputFile = strdup(argv[optind]);
+		        optind++;  // consume next argument
+		      }
+		
+		      if (verbose) {
+		        printf("option -Fh (Output File) with arg %s\n", outputFile);
+		      }
+		      break;
+		    }
+		
+		    default:
+		      print_usage_arg();
+		  }
+		  break;
 	  case 'O':
 		switch(optarg[0])
 		{
