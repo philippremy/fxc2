@@ -267,7 +267,7 @@ int main(int argc, char* argv[])
     for(i=0; i<numDefines-1; i++)
       printf(" %s=%s", defines[i].Name, defines[i].Definition);
 	if(numDefines-1 == 0)
-		printf("NULL");
+		printf(" NULL");
     printf(",\n");
 
     printf("\t D3D_COMPILE_STANDARD_FILE_INCLUDE,\n");
